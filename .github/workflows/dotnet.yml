@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    # 设置.NET版本
+    - name: Set up.NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x' 
+
+    # 编译项目
+    - name: Compile
+      run: |
+        mkdir /app/
+        dotnet publish -c release -o /app
+
+    # 上传制品
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dotnet-project-artifacts
+        path: /app
