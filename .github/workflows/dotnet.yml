@@ -21,12 +21,12 @@ jobs:
     # 编译项目
     - name: Compile
       run: |
-        mkdir /app/
-        dotnet publish -c release -o /app
+        mkdir app
+        dotnet publish -c release -o app
 
     # 上传制品
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
         name: dotnet-project-artifacts
-        path: /app
+        path: app
